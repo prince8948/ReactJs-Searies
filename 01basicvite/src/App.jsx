@@ -2,7 +2,7 @@ import './App.css'
 
 function App() 
 {
-  // lets understand variable injection
+  // lets understand variable injection this will help full with props
   const userName = 'Prince Prajapti';
 
   return (
