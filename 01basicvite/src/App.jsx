@@ -1,9 +1,14 @@
 import './App.css'
 
-function App() {
+function App() 
+{
+  // lets understand variable injection
+  const userName = 'Prince Prajapti';
+
   return (
     <>
-      <h1>hello first vite app</h1>
+    {/* {UserName} this is called variable injection it will give evaluated value */}
+      <h1>hello first vite app {userName}</h1> 
     </>
   )
 }
