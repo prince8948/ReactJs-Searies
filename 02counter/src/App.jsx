@@ -25,6 +25,11 @@ function App() {
       alert('you Get the minimum number')
     }
   }
+  const [user, setUser]=useState()
+  if(true){
+    console.log("user found")
+    setUser(user)
+  }
 
 
   return (
