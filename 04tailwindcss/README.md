@@ -16,3 +16,10 @@ Currently, two official plugins are available:
     "./index.html",
     "./src/**/*.{html,jsx,ts,js,tsx}",
   ],}
+
+
+  # Tailwind  & Props
+  - In this section I learn about tailwind css. How used it properties padding. Margin, text, font etc
+  - And learn about  props. Props is a properties of element.
+  ## Props -:
+  -  are a way to pass data from a parent component to a child component. They are a fundamental concept used to make components more reusable and dynamic. Props allow components to be dynamic by giving them the flexibility to receive and use data that is passed from other components.
