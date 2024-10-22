@@ -13,3 +13,19 @@ Currently, two official plugins are available:
   this command hepl us to css in our projects
 - npm install -D tailwindcss
 - npx tailwindcss init
+## change you config file of tailwind css
+- /** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+## Add the Tailwind directives to your CSS
+- import in you main css file index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
