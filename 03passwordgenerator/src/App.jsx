@@ -2,33 +2,37 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 
 function App() {
+  //these the hook to used change in state of fields
   const [length, setLength] = useState(8)
   const [number, setNumber] = useState(false)
   const [charactor, setCharactor] = useState(false)
   const [password, setPassword] = useState('')
   
+  //useRef is used to pass the reference of element to access it in password fields to copy btn
   const passwordRef = useRef(null)
 
+  //useCallBack is used when any change occure in variables it will rerender the page or optimized it.
   const passwordGenerator = useCallback(() => {
     let pass = ''
     let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
     if (number) str += '0123456789'
     if (charactor) str += '!@#$%^&*(){}?/><][|~`'
+
+    //these are the mlogic to generator ramdom password
     for (let i = 1; i <= length; i++) {
       let char = Math.floor(Math.random() * str.length + 1)
       pass += str.charAt(char)
     }
     setPassword(pass)
-  },
-    [length, number, charactor, setPassword])
+  },[length, number, charactor, setPassword])
 
-
+  //this method is used to capy password when we click on the copy btn
   const copyPasswordToClipBoard = useCallback(()=>{
     passwordRef.current?.select()
     window.navigator.clipboard.writeText(password);
   },[password])
 
-
+  //this modify the changes 
   useEffect(() => {
     passwordGenerator()
   }, [length, number, charactor, passwordGenerator])
@@ -37,7 +41,9 @@ function App() {
     <>
       <div className='flex flex-wrap flex-col max-w-3xl bg-gray-700 py-2 px-8 rounded-lg justify-center'>
         <div>
+          {/* this is heading */}
           <h1 className='text-orange-600 my-8 text-3xl font-semibold'>Password Generator</h1>
+          {/* password fields */}
           <input
             type="text"
             ref={passwordRef}
@@ -46,6 +52,7 @@ function App() {
             placeholder='password'
             className='outline-none max-w-md rounded-l-lg py-3 px-5 text-lg'
           />
+          {/* copy Button */}
           <button
           onClick={copyPasswordToClipBoard} 
           className='bg-blue-500 text-lg font-semibold py-3 px-4 rounded-r-lg'>COPY</button>
