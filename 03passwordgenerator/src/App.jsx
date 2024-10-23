@@ -1,33 +1,88 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [length, setLength] = useState(8)
+  const [number, setNumber] = useState(false)
+  const [charactor, setCharactor] = useState(false)
+  const [password, setPassword] = useState('')
+  
+  const passwordRef = useRef(null)
+
+  const passwordGenerator = useCallback(() => {
+    let pass = ''
+    let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    if (number) str += '0123456789'
+    if (charactor) str += '!@#$%^&*(){}?/><][|~`'
+    for (let i = 1; i <= length; i++) {
+      let char = Math.floor(Math.random() * str.length + 1)
+      pass += str.charAt(char)
+    }
+    setPassword(pass)
+  },
+    [length, number, charactor, setPassword])
+
+
+  const copyPasswordToClipBoard = useCallback(()=>{
+    passwordRef.current?.select()
+    window.navigator.clipboard.writeText(password);
+  },[password])
+
+
+  useEffect(() => {
+    passwordGenerator()
+  }, [length, number, charactor, passwordGenerator])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='flex flex-wrap flex-col max-w-3xl bg-gray-700 py-2 px-8 rounded-lg justify-center'>
+        <div>
+          <h1 className='text-orange-600 my-8 text-3xl font-semibold'>Password Generator</h1>
+          <input
+            type="text"
+            ref={passwordRef}
+            value={password}
+            onChange={() => setPassword(pass)}
+            placeholder='password'
+            className='outline-none max-w-md rounded-l-lg py-3 px-5 text-lg'
+          />
+          <button
+          onClick={copyPasswordToClipBoard} 
+          className='bg-blue-500 text-lg font-semibold py-3 px-4 rounded-r-lg'>COPY</button>
+        </div>
+
+        <div className='flex my-8 mx-2 text-xl gap-5'>
+          {/* range Length of string */}
+          <div className="flex">
+            <input type="range"
+              min='0'
+              max='100'
+              className='cursor-pointer'
+              onChange={(e) => (setLength(e.target.value))}
+            />
+            <label className='text-orange-500 font-semibold'>length {length}</label>
+          </div>
+
+          {/* Number Checkbox */}
+          <div>
+            <input type="checkbox"
+              className='w-4 h-4'
+              onChange={() => setNumber((prev) => !prev)}
+            />
+            <label className='text-orange-500 font-semibold'>Number </label>
+          </div>
+
+          {/* charctor check box */}
+          <div>
+            <input type="checkbox"
+              className=" h-4 w-4 cursor-pointer "
+              onChange={() => setCharactor((prev) => !prev)}
+            />
+            <label className='text-orange-500 font-semibold'>Charactor</label>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
     </>
   )
 }
