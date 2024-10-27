@@ -26,6 +26,8 @@ function Githubinfo() {
 }
 export default Githubinfo
 
+
+
 export const getGithubInfo = async () => {
     const response = await fetch('https://api.github.com/users/prince8948')
     return response.json()

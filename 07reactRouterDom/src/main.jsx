@@ -11,7 +11,6 @@ import User from './Users/User.jsx'
 import Githubinfo, {getGithubInfo} from './components/Github/Githubinfo.jsx'
 
 // First way to creating Routing
-
 {/*const router = createBrowserRouter(
   [
     {
