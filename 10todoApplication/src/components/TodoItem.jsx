@@ -12,7 +12,6 @@ function TodoItem({ todo }) {
       updateTodo(todo.id, {...todo, todo:todoMsg})
       alert('Update Successfully.')
       setIsTodoEditable(false)
-
     }
     const toggleCompleted = ()=>{
       toggleComplete(todo.id)
